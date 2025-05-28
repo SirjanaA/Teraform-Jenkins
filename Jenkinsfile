@@ -13,19 +13,15 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clean workspace to avoid folder conflicts
-                deleteDir()
                 git branch: 'main', url: 'https://github.com/SirjanaA/Terraform-Jenkins.git'
             }
         }
 
         stage('Plan') {
             steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                    sh 'terraform plan -out tfplan'
-                    sh 'terraform show -no-color tfplan > tfplan.txt'
-                }
+                sh 'terraform init'
+                sh 'terraform plan -out=tfplan'
+                sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
 
@@ -37,7 +33,7 @@ pipeline {
             }
             steps {
                 script {
-                    def plan = readFile 'terraform/tfplan.txt'
+                    def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
                           parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                 }
@@ -46,9 +42,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-                dir('terraform') {
-                    sh 'terraform apply -input=false tfplan'
-                }
+                sh 'terraform apply -input=false tfplan'
             }
         }
     }
