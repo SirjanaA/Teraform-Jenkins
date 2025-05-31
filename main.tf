@@ -5,6 +5,6 @@ resource "aws_instance" "tf-instance" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "${var.project}-tf-instance"
+    Name = "${var.project}-vm"
   }
 }

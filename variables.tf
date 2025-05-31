@@ -1,5 +1,5 @@
 variable "project" {
-  description = "terraform-jenkins"
+  description = "The AWS Project Name."
   type        = string
 }
 variable "region" {
