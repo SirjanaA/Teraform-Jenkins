@@ -5,6 +5,6 @@ resource "aws_instance" "tf-instance" {
   instance_type = "t2.medium"
 
   tags = {
-    Name = "${var.project}-vm"
+    Name = "${var.project}"
   }
 }
