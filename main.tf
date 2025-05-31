@@ -6,5 +6,6 @@ resource "aws_instance" "tf-instance" {
 
   tags = {
     Name = "${var.project}"
+    phase = "testing"
   }
 }
