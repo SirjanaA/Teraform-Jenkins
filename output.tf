@@ -1,4 +1,4 @@
 output "public_ip_address" {
-    value = aws_instance.vm.public_ip
+    value = [for instance in aws_instance.vm : instance.public_ip]
     description = "The public IP address of the server"
 }
